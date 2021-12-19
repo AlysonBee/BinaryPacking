@@ -52,9 +52,14 @@ void 	pack(t_elf_info *elf, unsigned char *content, size_t size)
 	elf->sh_note_shdr->sh_link = 0;
 	elf->sh_note_shdr->sh_info = 0;
 	elf->sh_note_shdr->sh_addr = 0x800000 + n;	
+	elf->sh_note_shdr->sh_entsize = 0;
+
+	printf("e_entry (before) %lx\n", header->e_entry);
+
+
 	header->e_entry = elf->pt_note_phdr->p_vaddr;
 
-
+	printf("e_entry is %lx\n", header->e_entry);
 	fd = open("woody", O_RDWR | O_CREAT, 0777);
 	write(fd, content, size);
 	lseek(fd, 0, SEEK_END);
