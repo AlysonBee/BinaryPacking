@@ -10,19 +10,21 @@ main:
 	push rdx
 	push rsi
 	push rdi
+	push r11
 
 	mov rax, 1
 	mov rdi, 1
-	lea rsi, [rel hello-$]
+	lea rsi, [rel $+hello-$]
 	mov rdx, [rel $+len-$]
 	syscall
 	
+	pop r11
 	pop rdi
 	pop rsi
 	pop rdx
  	pop rcx
 	pop rax
-	
+	push 0x11c0	
 	ret
 
 

@@ -15,7 +15,7 @@ t_elf_info	*malloc_elf_info(void)
 	return (elf);
 }
 
-Elf64_Shdr	*get_sh_note_shdr(Elf64_Shdr *section_headers, int sheader_count)
+Elf64_Shdr	*get_sh_note_shdr(Elf64_Shdr *section_headers, int sheader_count, char *string_table)
 {
 	Elf64_Shdr	*sh_note_shdr;
 	int		count;
@@ -25,9 +25,13 @@ Elf64_Shdr	*get_sh_note_shdr(Elf64_Shdr *section_headers, int sheader_count)
 	while (count < sheader_count)
 	{
 		if (sh_note_shdr->sh_type == SHT_NOTE)
-		{
-			printf("SHT_NOTE section header found\n");
-			return (sh_note_shdr);
+		{	
+			if (strcmp(&string_table[sh_note_shdr->sh_name],
+				".note.ABI-tag") == 0)
+			{
+				printf("SHT_NOTE section header found\n");
+				return (sh_note_shdr);
+			}
 		}
 		sh_note_shdr = (Elf64_Shdr *)((void *)sh_note_shdr + sizeof(Elf64_Shdr));
 		count++;
@@ -132,7 +136,7 @@ t_elf_info	*setup_elf_info(unsigned char *content, size_t size)
 	if (!elf->pt_note_phdr)
 		return (NULL);
 	
-	elf->sh_note_shdr = get_sh_note_shdr(section_headers, sheader_count);
+	elf->sh_note_shdr = get_sh_note_shdr(section_headers, sheader_count, elf->string_table);
 	if (!elf->sh_note_shdr)
 		return (NULL);
 
