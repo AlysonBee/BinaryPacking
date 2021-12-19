@@ -26,13 +26,15 @@ Elf64_Shdr	*get_sh_note_shdr(Elf64_Shdr *section_headers, int sheader_count, cha
 	{
 		if (sh_note_shdr->sh_type == SHT_NOTE)
 		{	
-			if (strcmp(&string_table[sh_note_shdr->sh_name],
-				".note.ABI-tag") == 0)
-			{
+//			if (strcmp(&string_table[sh_note_shdr->sh_name],
+//				".note.ABI-tag") == 0)
+//			{
 				printf("SHT_NOTE section header found\n");
 				return (sh_note_shdr);
-			}
+//			}
 		}
+//		printf("%s\n %lx\n", &string_table[sh_note_shdr->sh_name],
+//			sh_note_shdr->sh_addr);
 		sh_note_shdr = (Elf64_Shdr *)((void *)sh_note_shdr + sizeof(Elf64_Shdr));
 		count++;
 	}
