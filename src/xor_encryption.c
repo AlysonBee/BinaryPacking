@@ -14,6 +14,7 @@ void	_read_write_exec(Elf64_Phdr *program_headers, int pheader_count)
 	{
 		if (curr_program->p_type == PT_LOAD)
 		{
+			printf("p_vaddr is TP_LOAD %lx\n", curr_program->p_vaddr);
 			curr_program->p_flags = PF_X | PF_W | PF_R;
 		}
 		count++;
@@ -52,6 +53,8 @@ void	encrypt_text_section(Elf64_Shdr *section_headers, int section_count,
 	{
 		if (strcmp(&string_table[curr_section->sh_name], ".text") == 0)
 		{
+			printf("Text address is %lx\n", 
+				curr_section->sh_addr);
 			_42_xor(file_buffer, curr_section->sh_offset,
 				curr_section->sh_size);				
 			break ;

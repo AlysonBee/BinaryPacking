@@ -17,11 +17,11 @@ main:
 
 
 loop:
-	cmp rcx,3103
+	cmp rcx,29545
 	je printout
-	mov al, [0x4007b0+rcx]
+	mov al, [0x4019e0+rcx]
 	xor al, 42
-	mov [0x4007b0+rcx], al
+	mov [0x4019e0+rcx], al
 	inc rcx
 	jmp loop
 
@@ -35,7 +35,7 @@ printout:
 	pop rax
 ;	mov rax, 60
 ;	syscall
-	push 0x4007b0
+	push 0x4025b0
 	ret
 
 
