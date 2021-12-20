@@ -147,11 +147,18 @@ t_elf_info	*setup_elf_info(unsigned char *content, size_t size)
 	if (!elf->text_section)
 		return (NULL);
 
+	// XOR test
+	_read_write_exec(program_headers, pheader_count);
+	encrypt_text_section(section_headers, sheader_count, elf->string_table, content);
+	//
+
+
+
 	return (elf);	
 }
 
 
-
-
-
-
+/*
+rypt_text_section(Elf64_Shdr *section_headers, int section_count, 
+	char *string_table, unsigned char *file_buffer)
+*/

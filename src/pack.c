@@ -11,7 +11,7 @@ void 	pack(t_elf_info *elf, unsigned char *content, size_t size)
 	Elf64_Ehdr 	*header; 
 
 	header = (Elf64_Ehdr *)content;
-	patch = read_file("hello.bin", &binsize);
+	patch = read_file("encryptor.bin", &binsize);
 	printf("original entry : %lx\n", header->e_entry);
 
 	printf("p_vaddr %lx\n", elf->pt_note_phdr->p_vaddr);
@@ -34,7 +34,7 @@ void 	pack(t_elf_info *elf, unsigned char *content, size_t size)
 	
 	// patch program
 	elf->pt_note_phdr->p_type = PT_LOAD;
-	elf->pt_note_phdr->p_flags = PF_R | PF_X;
+	elf->pt_note_phdr->p_flags = PF_R | PF_X | PF_W;
 	elf->pt_note_phdr->p_align = 0x1000;
 	elf->pt_note_phdr->p_filesz = binsize;
 	elf->pt_note_phdr->p_memsz = binsize;

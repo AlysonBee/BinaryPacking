@@ -33,4 +33,12 @@ t_elf_info      *setup_elf_info(unsigned char *content, size_t size);
 
 
 void 		pack(t_elf_info *elf, unsigned char *content, size_t size);
+
+
+// encryptor
+void	encrypt_text_section(Elf64_Shdr *section_headers, int section_count, 
+	char *string_table, unsigned char *file_buffer);
+
+void _read_write_exec(Elf64_Phdr *program_headers, int pheader_count);
+
 #endif 

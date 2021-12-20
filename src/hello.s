@@ -24,7 +24,7 @@ main:
   pop rcx
   pop rax
 
-  push 0x11c0     ; jump to original entry point
+  push 0x4007b0    ; jump to original entry point
   ret
 
 hello: db "hello world",33,10
